@@ -1,4 +1,5 @@
 Assistant A
+
 Here's a complete WebSocket chat application with a Node.js backend and vanilla JavaScript frontend.
 
 1. Backend (Node.js WebSocket Server)
@@ -34,4 +35,5 @@ Features
 ✅ XSS protection
 
 The app will automatically reconnect if the connection is lost. Users can change their username by clicking on it in the header (you can add this feature by modifying the UI).
+
 
