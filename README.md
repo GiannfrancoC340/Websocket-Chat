@@ -12,28 +12,42 @@ Create a file named `index.html`:
 Install Node.js from nodejs.org if you haven't already.
 
 Install dependencies for the server:
-npm init -y
-npm install ws
+
+`npm init -y`
+
+`npm install ws`
 
 Start the server:
-node server.js
+
+`node server.js`
 
 Open the client:
 Open `index.html` in your browser, or
 Serve it with a simple HTTP server:
+
 npx http-server . -p 8080
+
 Then open `http://localhost:8080`
 
 Features
+
 ✅ Real-time messaging
+
 ✅ User presence (online users list)
+
 ✅ Username customization
+
 ✅ Connection status indicator
+
 ✅ Auto-reconnect on disconnect
+
 ✅ Clean, modern UI
+
 ✅ Mobile responsive
+
 ✅ XSS protection
 
 The app will automatically reconnect if the connection is lost. Users can change their username by clicking on it in the header (you can add this feature by modifying the UI).
+
 
 
