@@ -8,12 +8,12 @@ const wss = new WebSocket.Server({ server });
 // Store connected clients
 const clients = new Map();
 
-// Broadcast to all clients except sender
-function broadcast(message, sender) {
+// Broadcast to all clients (including sender)
+function broadcast(message) {
   const data = JSON.stringify(message);
   
   clients.forEach((clientInfo, client) => {
-    if (client !== sender && client.readyState === WebSocket.OPEN) {
+    if (client.readyState === WebSocket.OPEN) {
       client.send(data);
     }
   });
@@ -38,14 +38,14 @@ wss.on('connection', (ws) => {
   broadcast({
     type: 'userList',
     users: userList
-  }, ws);
+  });
   
   ws.on('message', (data) => {
     try {
       const message = JSON.parse(data);
       
       if (message.type === 'message') {
-        // Broadcast chat message
+        // Broadcast chat message to ALL clients (including sender)
         const clientInfo = clients.get(ws);
         broadcast({
           type: 'message',
@@ -53,7 +53,7 @@ wss.on('connection', (ws) => {
           username: clientInfo.username,
           text: message.text,
           timestamp: new Date().toISOString()
-        }, ws);
+        });
       } else if (message.type === 'setUsername') {
         // Update username
         const clientInfo = clients.get(ws);
@@ -64,7 +64,7 @@ wss.on('connection', (ws) => {
         broadcast({
           type: 'userList',
           users: userList
-        }, ws);
+        });
       }
     } catch (err) {
       console.error('Invalid message format:', err);
@@ -80,7 +80,7 @@ wss.on('connection', (ws) => {
     broadcast({
       type: 'userList',
       users: userList
-    }, ws);
+    });
   });
   
   ws.on('error', (err) => {
